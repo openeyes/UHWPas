@@ -37,8 +37,8 @@ $config = array(
         ),
     ),
     'params' => array(
-        'pas_client_host' => 'localhost',
-        'pas_client_port' => '9991',
+        'pas_client_host' => !empty(getenv('UHWPAS_HOST')) ? getenv('UHWPAS_HOST') : 'localhost',
+        'pas_client_port' => !empty(getenv('UHWPAS_PORT')) ? getenv('UHWPAS_PORT') : '9991',
         /* Set to true to search for patients on a NHS number. Failed
          * (local DB) searches will then try to find the patient by a PAS
          * search using the NHS number. */
