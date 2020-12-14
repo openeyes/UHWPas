@@ -122,7 +122,7 @@ OELog::log("dataStr " . $dataStr);
 		OELog::log("Updating patient data");
                 $patient->contact = $this->updateContact($patient->contact, $attrs['first_name'], $attrs['last_name'], $attrs['title']);
                 if (!($address = $patient->contact->homeAddress)) {
-                    $address = new \Address();
+                    $address = new Address();
                 }
                 $this->updateAddress($address, $attrs['address1'], $attrs['address2'], $attrs['city'], $attrs['county'], $attrs['postcode'], $patient->contact->id);
                 #$patient->gp = Gp::model()->findByAttributes(array('nat_id' => $attrs['gpcode']));
