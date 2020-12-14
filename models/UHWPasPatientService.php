@@ -121,7 +121,10 @@ OELog::log("dataStr " . $dataStr);
             if (isset($attrs['hos_num']) && isset($attrs['nhs_num']) && $attrs['first_name'] && $attrs['last_name'] && $attrs['gender'] && $attrs['dob'] && $attrs['address1'] && $attrs['postcode']) {
 		OELog::log("Updating patient data");
                 $patient->contact = $this->updateContact($patient->contact, $attrs['first_name'], $attrs['last_name'], $attrs['title']);
-                $this->updateAddress($patient->contact->homeAddress, $attrs['address1'], $attrs['address2'], $attrs['city'], $attrs['county'], $attrs['postcode'], $patient->contact->id);
+                if (!($address = $patient->contact->homeAddress)) {
+                    $address = new Address();
+                }
+                $this->updateAddress($address, $attrs['address1'], $attrs['address2'], $attrs['city'], $attrs['county'], $attrs['postcode'], $patient->contact->id);
                 #$patient->gp = Gp::model()->findByAttributes(array('nat_id' => $attrs['gpcode']));
 		#var_dump($patient->gp); die;
 		$this->updatePatient($patient, $attrs['dob'], $attrs['nhs_num'], $attrs['hos_num'], $attrs['gender'], $attrs['gpcode']);
